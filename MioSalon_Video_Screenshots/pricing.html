@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fiyat Listesi - ÉLÉGANCE</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Georgia', serif; color: #1a1a1a; background: #fff; }
+
+        .header {
+            position: fixed; top: 0; width: 100%; background: rgba(0, 0, 0, 0.95);
+            padding: 20px 5%; z-index: 1000; display: flex;
+            justify-content: space-between; align-items: center;
+        }
+        .logo {
+            font-size: 28px; font-weight: bold;
+            background: linear-gradient(135deg, #D4AF37, #FFD700);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            letter-spacing: 3px;
+        }
+        nav a {
+            color: #fff; text-decoration: none; margin: 0 20px;
+            font-size: 13px; letter-spacing: 2px; text-transform: uppercase;
+        }
+        nav a:hover { color: #D4AF37; }
+
+        .auth-buttons {
+            display: flex; gap: 15px; align-items: center; margin-left: 30px;
+        }
+        .auth-btn {
+            padding: 10px 25px; font-size: 12px; letter-spacing: 2px;
+            text-transform: uppercase; text-decoration: none; transition: all 0.3s;
+            border-radius: 3px; font-family: 'Georgia', serif;
+        }
+        .login-btn {
+            color: #fff; border: 1px solid #fff; background: transparent;
+        }
+        .login-btn:hover { background: #fff; color: #000; }
+        .signup-btn {
+            background: linear-gradient(135deg, #D4AF37, #FFD700);
+            color: #000; border: 1px solid #D4AF37; font-weight: bold;
+        }
+        .signup-btn:hover {
+            background: transparent; color: #D4AF37; border-color: #D4AF37;
+        }
+
+        .page-header {
+            height: 50vh; background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.5)),
+            url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080"><rect fill="%23000" width="1920" height="1080"/></svg>');
+            display: flex; align-items: center; justify-content: center;
+            text-align: center; color: #fff; margin-top: 80px;
+        }
+        .page-header h1 {
+            font-size: 64px; font-weight: 300; letter-spacing: 8px;
+            text-transform: uppercase;
+            background: linear-gradient(135deg, #D4AF37, #FFD700);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+
+        .pricing-section {
+            padding: 80px 5%;
+        }
+        .pricing-section:nth-child(even) {
+            background: #f8f8f8;
+        }
+        .pricing-title {
+            text-align: center; font-size: 42px; letter-spacing: 4px;
+            text-transform: uppercase; font-weight: 300; margin-bottom: 60px;
+        }
+        .pricing-table {
+            max-width: 900px; margin: 0 auto; background: #fff;
+            border: 1px solid #e0e0e0;
+        }
+        .pricing-row {
+            display: flex; justify-content: space-between;
+            padding: 25px 40px; border-bottom: 1px solid #e0e0e0;
+            transition: all 0.3s;
+        }
+        .pricing-row:hover {
+            background: #fafafa; border-left: 3px solid #D4AF37;
+        }
+        .pricing-row:last-child {
+            border-bottom: none;
+        }
+        .service-name {
+            font-size: 16px; letter-spacing: 1px;
+        }
+        .service-price {
+            font-size: 20px; color: #D4AF37; font-weight: bold;
+        }
+
+        .package-cards {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px; margin-top: 60px;
+        }
+        .package-card {
+            background: #fff; padding: 50px 40px;
+            border: 2px solid #e0e0e0; text-align: center;
+            transition: all 0.3s;
+        }
+        .package-card:hover {
+            border-color: #D4AF37; transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        .package-card h3 {
+            font-size: 28px; margin-bottom: 20px; letter-spacing: 2px;
+        }
+        .package-price {
+            font-size: 48px; color: #D4AF37; margin-bottom: 30px;
+            font-weight: bold;
+        }
+        .package-features {
+            list-style: none; text-align: left; margin-bottom: 30px;
+        }
+        .package-features li {
+            padding: 10px 0; padding-left: 25px; position: relative;
+            font-size: 14px; color: #666;
+        }
+        .package-features li::before {
+            content: '✓'; position: absolute; left: 0;
+            color: #D4AF37; font-weight: bold;
+        }
+
+        .cta-button {
+            display: inline-block; padding: 15px 40px;
+            background: transparent; color: #D4AF37;
+            border: 2px solid #D4AF37; text-decoration: none;
+            font-size: 13px; letter-spacing: 2px; text-transform: uppercase;
+            transition: all 0.3s;
+        }
+        .cta-button:hover {
+            background: #D4AF37; color: #000;
+        }
+
+        .footer {
+            background: #0a0a0a;
+            color: #fff;
+            padding: 80px 5% 40px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 60px;
+            margin-bottom: 60px;
+        }
+
+        .footer-section h4 {
+            color: #D4AF37;
+            margin-bottom: 25px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-size: 16px;
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: #999;
+            text-decoration: none;
+            line-height: 2.2;
+            font-size: 14px;
+            display: block;
+            transition: all 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: #D4AF37;
+            padding-left: 5px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            width: 45px;
+            height: 45px;
+            border: 1px solid #D4AF37;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.3s;
+            font-size: 20px;
+        }
+
+        .social-links a:hover {
+            background: #D4AF37;
+            color: #000;
+            transform: translateY(-3px);
+            padding-left: 0;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #2a2a2a;
+            padding-top: 30px;
+            text-align: center;
+            color: #666;
+            font-size: 13px;
+            letter-spacing: 1px;
+        }
+
+        @media (max-width: 768px) {
+            .pricing-row { flex-direction: column; gap: 10px; }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="logo">ÉLÉGANCE</div>
+        <div style="display: flex; align-items: center;">
+            <nav>
+                <a href="index.html">Ana Sayfa</a>
+                <a href="services.html">Hizmetler</a>
+                <a href="gallery.html">Galeri</a>
+                <a href="pricing.html">Fiyatlar</a>
+                <a href="team.html">Ekibimiz</a>
+                <a href="about.html">Hakkımızda</a>
+                <a href="booking.html">Randevu</a>
+            </nav>
+            <div class="auth-buttons">
+                <a href="#" class="auth-btn login-btn">Giriş Yap</a>
+                <a href="#" class="auth-btn signup-btn">Üye Ol</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="page-header">
+        <h1>Fiyat Listesi</h1>
+    </div>
+
+    <section class="pricing-section">
+        <h2 class="pricing-title">Saç Hizmetleri</h2>
+        <div class="pricing-table">
+            <div class="pricing-row">
+                <div class="service-name">Kadın Saç Kesimi</div>
+                <div class="service-price">₺800</div>
+            </div>
+            <div class="pricing-row">
+                <div class="service-name">Çocuk Saç Kesimi</div>
+                <div class="service-price">₺350</div>
+            </div>
+            <div class="pricing-row">
+                <div class="service-name">Fön (Blow-Dry)</div>
+                <div class="service-price">₺400</div>
+            </div>
+            <div class="pricing-row">
+                <div class="service-name">Özel Saç Tasarımı</div>
+                <div class="service-price">₺1,200</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="pricing-section">
+        <h2 class="pricing-title">Saç Boyama & Renklendirme</h2>
+        <div class="pricing-table">
+            <div class="pricing-row">
+                <div class="service-name">Kök Boyama</div>
+                <div class="service-price">₺600</div>
+            </div>
+            <div class="pricing-row">
+                <div class="service-name">Tam Boya</div>
+                <div class="service-price">₺1,200</div>
+            </div>
+            <div class="pricing-row">
+                <div class="service-name">Balyaj / Highlights</div>
+                <div class="service-price">₺2,000</div>
+            </div>
+            <div class="pricing-row">
+                <div class="service-name">Ombre / Sombre</div>
+                <div class="service-price">₺2,000</div>
+            </div>
+            <div class="pricing-row">
+                <div class="service-name">Renk Düzeltme</div>
+                <div class="service-price">₺2,500+</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="pricing-section">
+        <h2 class="pricing-title">Saç Bakımı & Tedavi</h2>
+        <div class="pricing-table">
+            <div class="pricing-row">
+                <div class="service-name">Keratin Bakımı</div>
+                <div class="service-price">₺1,500</div>
+            </div>
+            <div class="pricing-row">
+                <div class="service-name">Saç Botoksu</div>
+                <div class="service-price">₺1,200</div>
+            </div>
+            <div class="pricing-row">
+                <div class="service-name">Protein Bakımı</div>
+                <div class="service-price">₺800</div>
+            </div>
+            <div class="pricing-row">
+                <div class="service-name">Olaplex Tedavisi</div>
+                <div class="service-price">₺900</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="pricing-section">
+        <h2 class="pricing-title">Tırnak Bakımı</h2>
+        <div class="pricing-table">
+            <div class="pricing-row">
+                <div class="service-name">Manikür</div>
+                <div class="service-price">₺400</div>
+            </div>
+            <div class="pricing-row">
+                <div class="service-name">Pedikür</div>
+                <div class="service-price">₺500</div>
+            </div>
+            <div class="pricing-row">
+                <div class="service-name">Kalıcı Oje (Shellac)</div>
+                <div class="service-price">₺600</div>
+            </div>
+            <div class="pricing-row">
+                <div class="service-name">Protez Tırnak</div>
+                <div class="service-price">₺800</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="pricing-section">
+        <h2 class="pricing-title">Özel Paketler</h2>
+        <div class="package-cards">
+            <div class="package-card">
+                <h3>Gelin Paketi Premium</h3>
+                <div class="package-price">₺5,000</div>
+                <ul class="package-features">
+                    <li>Prova (Saç + Makyaj)</li>
+                    <li>Düğün Günü Saç Tasarımı</li>
+                    <li>HD Gelin Makyajı</li>
+                    <li>Kirpik Uygulaması</li>
+                    <li>Manikür & Pedikür</li>
+                    <li>Gün Boyu Dokunma</li>
+                </ul>
+                <a href="booking.html" class="cta-button">Randevu Al</a>
+            </div>
+            <div class="package-card">
+                <h3>Nişan / Kına Paketi</h3>
+                <div class="package-price">₺2,500</div>
+                <ul class="package-features">
+                    <li>Özel Saç Tasarımı</li>
+                    <li>Profesyonel Makyaj</li>
+                    <li>Kirpik</li>
+                    <li>Manikür</li>
+                    <li>Aksesuar Yerleştirme</li>
+                </ul>
+                <a href="booking.html" class="cta-button">Randevu Al</a>
+            </div>
+            <div class="package-card">
+                <h3>Özel Gün Paketi</h3>
+                <div class="package-price">₺1,500</div>
+                <ul class="package-features">
+                    <li>Saç Şekillendirme</li>
+                    <li>Gece Makyajı</li>
+                    <li>Manikür</li>
+                    <li>Stil Danışmanlığı</li>
+                </ul>
+                <a href="booking.html" class="cta-button">Randevu Al</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="pricing-section" style="background: #0a0a0a; color: #fff; text-align: center; padding: 80px 5%;">
+        <p style="font-size: 14px; color: #999; margin-bottom: 20px;">* Fiyatlar değişiklik gösterebilir. Detaylı bilgi için lütfen iletişime geçiniz.</p>
+        <a href="booking.html" class="cta-button" style="color: #D4AF37; border-color: #D4AF37;">Online Randevu Al</a>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>ÉLÉGANCE</h4>
+                <p>İstanbul'un en prestijli kuaför salonu. 2010'dan beri güzellik ve zarafette öncü.</p>
+                <div class="social-links">
+                    <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                    <a href="#" title="TikTok"><i class="fab fa-tiktok"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h4>Hızlı Linkler</h4>
+                <a href="services.html">Hizmetlerimiz</a>
+                <a href="pricing.html">Fiyat Listesi</a>
+                <a href="gallery.html">Galeri</a>
+                <a href="team.html">Ekibimiz</a>
+                <a href="about.html">Hakkımızda</a>
+                <a href="booking.html">Online Randevu</a>
+            </div>
+            <div class="footer-section">
+                <h4>Hizmetler</h4>
+                <a href="services.html#cutting">Saç Kesimi</a>
+                <a href="services.html#coloring">Saç Boyama</a>
+                <a href="services.html#treatment">Saç Bakımı</a>
+                <a href="services.html#nails">Tırnak Bakımı</a>
+                <a href="services.html#makeup">Makyaj</a>
+                <a href="services.html#bridal">Gelin Paketi</a>
+            </div>
+            <div class="footer-section">
+                <h4>İletişim</h4>
+                <p>📍 Valikonağı Cad. No:45<br>Nişantaşı, İstanbul</p>
+                <p>📞 +90 (212) 234 56 78</p>
+                <p>✉️ info@elegance.com.tr</p>
+                <p>🕐 Pzt-Cmt: 09:00 - 19:00</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            © 2025 ÉLÉGANCE. Tüm hakları saklıdır. | Tasarım & Geliştirme
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alternatif 4: Bold & Cesur (Siyah-Kırmızı)</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@300;400;700;900&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            color: #fff;
+            background: #000;
+            overflow-x: hidden;
+        }
+
+        .header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            padding: 20px 6%;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 3px solid #DC143C;
+        }
+
+        .logo {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 42px;
+            color: #DC143C;
+            letter-spacing: 4px;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 25px;
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #DC143C;
+            transition: width 0.3s;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        .hero {
+            height: 100vh;
+            background: #000;
+            display: flex;
+            align-items: center;
+            padding: 0 6%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(135deg, transparent, #DC143C);
+            opacity: 0.1;
+            clip-path: polygon(30% 0, 100% 0, 100% 100%, 0% 100%);
+        }
+
+        .hero-content {
+            max-width: 700px;
+            z-index: 2;
+        }
+
+        .hero-content h1 {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 92px;
+            margin-bottom: 20px;
+            color: #fff;
+            line-height: 0.95;
+            letter-spacing: 2px;
+        }
+
+        .hero-content .highlight {
+            color: #DC143C;
+            display: block;
+        }
+
+        .hero-content p {
+            font-size: 18px;
+            margin-bottom: 40px;
+            color: #ccc;
+            font-weight: 300;
+            max-width: 500px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 18px 50px;
+            background: #DC143C;
+            color: #fff;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 900;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            transition: all 0.3s;
+            border: 2px solid #DC143C;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: #fff;
+            transition: left 0.3s;
+            z-index: -1;
+        }
+
+        .cta-button:hover::before {
+            left: 0;
+        }
+
+        .cta-button:hover {
+            color: #DC143C;
+        }
+
+        section {
+            padding: 100px 6%;
+        }
+
+        .services {
+            background: #0a0a0a;
+        }
+
+        .section-title {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 72px;
+            margin-bottom: 20px;
+            letter-spacing: 3px;
+            color: #fff;
+        }
+
+        .section-subtitle {
+            font-size: 16px;
+            color: #DC143C;
+            margin-bottom: 60px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2px;
+        }
+
+        .service-card {
+            background: #1a1a1a;
+            padding: 50px 30px;
+            text-align: center;
+            transition: all 0.3s;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: #DC143C;
+            transition: left 0.3s;
+            z-index: 0;
+        }
+
+        .service-card:hover::before {
+            left: 0;
+        }
+
+        .service-card > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .service-icon {
+            font-size: 56px;
+            margin-bottom: 20px;
+        }
+
+        .service-card h3 {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 28px;
+            margin-bottom: 15px;
+            letter-spacing: 2px;
+        }
+
+        .service-card p {
+            font-size: 14px;
+            color: #ccc;
+            line-height: 1.6;
+            font-weight: 300;
+        }
+
+        .features {
+            background: #000;
+            text-align: center;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0;
+            margin-top: 60px;
+        }
+
+        .feature {
+            padding: 60px 30px;
+            border: 1px solid #1a1a1a;
+            transition: all 0.3s;
+        }
+
+        .feature:hover {
+            background: #DC143C;
+            border-color: #DC143C;
+        }
+
+        .feature h3 {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 64px;
+            margin-bottom: 10px;
+            color: #DC143C;
+        }
+
+        .feature:hover h3 {
+            color: #fff;
+        }
+
+        .feature p {
+            font-size: 14px;
+            color: #999;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .feature:hover p {
+            color: #fff;
+        }
+
+        .gallery {
+            background: #0a0a0a;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 3px;
+            margin-top: 60px;
+        }
+
+        .gallery-item {
+            height: 280px;
+            background: #1a1a1a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            transition: all 0.3s;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .gallery-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #DC143C;
+            transform: scale(0);
+            transition: transform 0.3s;
+        }
+
+        .gallery-item:hover::before {
+            transform: scale(1);
+        }
+
+        .gallery-item span {
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-section {
+            background: #DC143C;
+            text-align: center;
+            padding: 120px 6%;
+        }
+
+        .cta-section h2 {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 82px;
+            margin-bottom: 30px;
+            letter-spacing: 3px;
+        }
+
+        .cta-section .cta-button {
+            background: #000;
+            border-color: #000;
+        }
+
+        .cta-section .cta-button::before {
+            background: #fff;
+        }
+
+        .cta-section .cta-button:hover {
+            color: #000;
+        }
+
+        .footer {
+            background: #000;
+            color: #fff;
+            padding: 80px 6%;
+            border-top: 3px solid #DC143C;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 60px;
+            margin-bottom: 50px;
+        }
+
+        .footer h4 {
+            font-family: 'Bebas Neue', cursive;
+            color: #DC143C;
+            margin-bottom: 25px;
+            font-size: 28px;
+            letter-spacing: 2px;
+        }
+
+        .footer p, .footer a {
+            color: #999;
+            text-decoration: none;
+            line-height: 2.2;
+            font-size: 14px;
+            font-weight: 300;
+        }
+
+        .footer a:hover {
+            color: #DC143C;
+        }
+
+        .design-label {
+            position: fixed;
+            top: 83px;
+            right: 20px;
+            background: #DC143C;
+            color: #fff;
+            padding: 10px 25px;
+            font-size: 11px;
+            font-weight: 900;
+            z-index: 1001;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            border: 2px solid #fff;
+        }
+
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 56px;
+            }
+
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="design-label">TASARIM 4: BOLD CESUR</div>
+
+    <header class="header">
+        <div class="logo">RAZOR EDGE</div>
+        <nav>
+            <a href="#home">Ana Sayfa</a>
+            <a href="#services">Hizmetler</a>
+            <a href="#gallery">Galeri</a>
+            <a href="#contact">İletişim</a>
+        </nav>
+    </header>
+
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>
+                STYLE WITH
+                <span class="highlight">ATTITUDE</span>
+            </h1>
+            <p>Cesur, farklı, kendin ol. Sıradanlığa meydan okuyan stilin yeni adresi.</p>
+            <a href="#" class="cta-button">Randevu Al</a>
+        </div>
+    </section>
+
+    <section class="services" id="services">
+        <h2 class="section-title">HİZMETLER</h2>
+        <div class="section-subtitle">— PROFESYONEL HİZMETLERİMİZ —</div>
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon">✂️</div>
+                <h3>CUTTING EDGE</h3>
+                <p>Modern ve cesur saç kesimleri</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">🎨</div>
+                <h3>COLOR LAB</h3>
+                <p>Yaratıcı renk uygulamaları</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">💆</div>
+                <h3>TREATMENT</h3>
+                <p>Yoğun bakım programları</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">💅</div>
+                <h3>NAIL STUDIO</h3>
+                <p>Trend tırnak tasarımları</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">💄</div>
+                <h3>MAKEUP PRO</h3>
+                <p>Profesyonel makyaj</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">⚡</div>
+                <h3>SPECIAL</h3>
+                <p>Özel gün paketleri</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="features">
+        <h2 class="section-title">NEDEN BİZ?</h2>
+        <div class="features-grid">
+            <div class="feature">
+                <h3>10+</h3>
+                <p>Yıl Deneyim</p>
+            </div>
+            <div class="feature">
+                <h3>5K+</h3>
+                <p>Mutlu Müşteri</p>
+            </div>
+            <div class="feature">
+                <h3>8</h3>
+                <p>Uzman Ekip</p>
+            </div>
+            <div class="feature">
+                <h3>100%</h3>
+                <p>Memnuniyet</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="gallery">
+        <h2 class="section-title">GALERİ</h2>
+        <div class="section-subtitle">— ÇALIŞMALARıMIZ —</div>
+        <div class="gallery-grid">
+            <div class="gallery-item"><span>📷</span></div>
+            <div class="gallery-item"><span>📷</span></div>
+            <div class="gallery-item"><span>📷</span></div>
+            <div class="gallery-item"><span>📷</span></div>
+            <div class="gallery-item"><span>📷</span></div>
+            <div class="gallery-item"><span>📷</span></div>
+            <div class="gallery-item"><span>📷</span></div>
+            <div class="gallery-item"><span>📷</span></div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <h2>HAZıR MıSıN?</h2>
+        <a href="#" class="cta-button">Hemen Başla</a>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div>
+                <h4>RAZOR EDGE</h4>
+                <p>Stilin cesur hali. Sıradanlığa meydan okuyoruz.</p>
+            </div>
+            <div>
+                <h4>MENÜ</h4>
+                <p><a href="#">Hizmetler</a></p>
+                <p><a href="#">Ekip</a></p>
+                <p><a href="#">Galeri</a></p>
+                <p><a href="#">İletişim</a></p>
+            </div>
+            <div>
+                <h4>İLETİŞİM</h4>
+                <p>📍 Kadıköy, İstanbul</p>
+                <p>📞 +90 216 XXX XX XX</p>
+                <p>✉️ info@razoredge.com</p>
+            </div>
+            <div>
+                <h4>SOSYAL</h4>
+                <p><a href="#">Instagram</a></p>
+                <p><a href="#">Facebook</a></p>
+                <p><a href="#">TikTok</a></p>
+                <p><a href="#">YouTube</a></p>
+            </div>
+        </div>
+        <p style="text-align: center; border-top: 1px solid #1a1a1a; padding-top: 30px; color: #666; font-size: 13px;">© 2025 RAZOR EDGE. ALL RIGHTS RESERVED.</p>
+    </footer>
+</body>
+</html>

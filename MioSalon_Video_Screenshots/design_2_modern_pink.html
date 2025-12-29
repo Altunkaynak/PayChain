@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alternatif 2: Modern & Minimal (Pembe-Beyaz)</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: #2d2d2d;
+            background: #fff;
+        }
+
+        .header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.98);
+            padding: 20px 8%;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+        }
+
+        .logo {
+            font-size: 32px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #FF69B4, #FF1493);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        nav a {
+            color: #2d2d2d;
+            text-decoration: none;
+            margin: 0 25px;
+            font-size: 15px;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        nav a:hover {
+            color: #FF69B4;
+        }
+
+        .hero {
+            height: 100vh;
+            background: linear-gradient(135deg, #FFF0F5 0%, #FFE4E9 100%);
+            display: flex;
+            align-items: center;
+            padding: 0 8%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(255,105,180,0.1), transparent);
+            border-radius: 50%;
+            top: -100px;
+            right: -100px;
+        }
+
+        .hero-content {
+            max-width: 600px;
+            z-index: 2;
+        }
+
+        .hero-content h1 {
+            font-size: 68px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #2d2d2d;
+            line-height: 1.2;
+        }
+
+        .hero-content .highlight {
+            background: linear-gradient(135deg, #FF69B4, #FF1493);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-content p {
+            font-size: 20px;
+            margin-bottom: 40px;
+            color: #666;
+            font-weight: 300;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 16px 45px;
+            background: linear-gradient(135deg, #FF69B4, #FF1493);
+            color: #fff;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: 50px;
+            transition: all 0.3s;
+            box-shadow: 0 10px 30px rgba(255,105,180,0.3);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(255,105,180,0.4);
+        }
+
+        section {
+            padding: 100px 8%;
+        }
+
+        .services {
+            background: #fff;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 48px;
+            margin-bottom: 60px;
+            font-weight: 700;
+            color: #2d2d2d;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 18px;
+            color: #666;
+            margin-top: -40px;
+            margin-bottom: 60px;
+            font-weight: 300;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .service-card {
+            background: #fff;
+            padding: 40px 30px;
+            border-radius: 20px;
+            box-shadow: 0 5px 30px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            border-color: #FF69B4;
+            box-shadow: 0 15px 50px rgba(255,105,180,0.2);
+        }
+
+        .service-icon {
+            font-size: 56px;
+            margin-bottom: 20px;
+        }
+
+        .service-card h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            font-weight: 600;
+            color: #2d2d2d;
+        }
+
+        .service-card p {
+            font-size: 15px;
+            color: #666;
+            line-height: 1.6;
+            font-weight: 300;
+        }
+
+        .why-us {
+            background: linear-gradient(135deg, #FFF0F5 0%, #FFE4E9 100%);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .feature {
+            text-align: center;
+            padding: 30px;
+            background: #fff;
+            border-radius: 20px;
+            transition: all 0.3s;
+        }
+
+        .feature:hover {
+            transform: scale(1.05);
+        }
+
+        .feature-icon {
+            font-size: 72px;
+            margin-bottom: 20px;
+        }
+
+        .feature h3 {
+            font-size: 22px;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .feature p {
+            color: #666;
+            font-weight: 300;
+        }
+
+        .gallery {
+            background: #fff;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 60px;
+        }
+
+        .gallery-item {
+            height: 320px;
+            background: linear-gradient(135deg, #FFE4E9, #FFF0F5);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 64px;
+            transition: all 0.3s;
+            cursor: pointer;
+            overflow: hidden;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.03);
+            box-shadow: 0 10px 40px rgba(255,105,180,0.3);
+        }
+
+        .testimonials {
+            background: linear-gradient(135deg, #FFF0F5 0%, #FFE4E9 100%);
+            padding: 100px 8%;
+        }
+
+        .testimonial-card {
+            background: #fff;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 5px 30px rgba(0,0,0,0.08);
+            margin: 20px;
+            text-align: center;
+        }
+
+        .testimonial-card p {
+            font-size: 16px;
+            color: #666;
+            line-height: 1.8;
+            font-style: italic;
+            margin-bottom: 20px;
+        }
+
+        .testimonial-card h4 {
+            font-size: 18px;
+            color: #FF69B4;
+            font-weight: 600;
+        }
+
+        .footer {
+            background: #2d2d2d;
+            color: #fff;
+            padding: 60px 8%;
+            text-align: center;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+            text-align: left;
+        }
+
+        .footer h4 {
+            color: #FF69B4;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .footer p, .footer a {
+            color: #ccc;
+            text-decoration: none;
+            line-height: 2;
+            font-size: 14px;
+            font-weight: 300;
+        }
+
+        .footer a:hover {
+            color: #FF69B4;
+        }
+
+        .design-label {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            background: linear-gradient(135deg, #FF69B4, #FF1493);
+            color: #fff;
+            padding: 10px 20px;
+            font-size: 11px;
+            font-weight: 600;
+            z-index: 1001;
+            border-radius: 50px;
+            box-shadow: 0 5px 20px rgba(255,105,180,0.4);
+        }
+
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 42px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="design-label">TASARIM 2: MODERN MİNİMAL</div>
+
+    <header class="header">
+        <div class="logo">BeautyLab</div>
+        <nav>
+            <a href="#home">Ana Sayfa</a>
+            <a href="#services">Hizmetler</a>
+            <a href="#gallery">Galeri</a>
+            <a href="#contact">İletişim</a>
+        </nav>
+    </header>
+
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>Güzelliğinizin <span class="highlight">Yeni Adresi</span></h1>
+            <p>Modern teknikler ve profesyonel ekibimizle hayalinizdeki görünüme kavuşun</p>
+            <a href="#" class="cta-button">Hemen Randevu Al</a>
+        </div>
+    </section>
+
+    <section class="services" id="services">
+        <h2 class="section-title">Hizmetlerimiz</h2>
+        <p class="section-subtitle">Size en uygun hizmeti bulmak için buradayız</p>
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon">✂️</div>
+                <h3>Saç Tasarımı</h3>
+                <p>Yüz şeklinize ve stilinize özel modern saç kesim ve şekillendirme</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">🎨</div>
+                <h3>Renklendirme</h3>
+                <p>Balyaj, ombre, highlights ve tüm boyama teknikleri</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">💆</div>
+                <h3>Premium Bakım</h3>
+                <p>Keratin, botoks ve özel saç bakım tedavileri</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">💅</div>
+                <h3>Nail Art</h3>
+                <p>Kalıcı oje, protez tırnak ve özel tasarımlar</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">💄</div>
+                <h3>Makyaj Sanatı</h3>
+                <p>Günlük, gece ve özel gün makyajları</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">👰</div>
+                <h3>Gelin Güzelliği</h3>
+                <p>En özel gününüz için komple güzellik paketi</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="why-us">
+        <h2 class="section-title">Neden BeautyLab?</h2>
+        <div class="features-grid">
+            <div class="feature">
+                <div class="feature-icon">👩‍🎨</div>
+                <h3>Uzman Ekip</h3>
+                <p>Sertifikalı ve deneyimli profesyoneller</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🌟</div>
+                <h3>Premium Kalite</h3>
+                <p>En iyi markalarla çalışıyoruz</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">✨</div>
+                <h3>Modern Teknikler</h3>
+                <p>Son trend ve teknolojiler</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">💝</div>
+                <h3>Müşteri Odaklı</h3>
+                <p>Memnuniyetiniz önceliğimiz</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="gallery">
+        <h2 class="section-title">Çalışmalarımız</h2>
+        <p class="section-subtitle">Dönüşümlere göz atın</p>
+        <div class="gallery-grid">
+            <div class="gallery-item">📷</div>
+            <div class="gallery-item">📷</div>
+            <div class="gallery-item">📷</div>
+            <div class="gallery-item">📷</div>
+            <div class="gallery-item">📷</div>
+            <div class="gallery-item">📷</div>
+        </div>
+    </section>
+
+    <section class="testimonials">
+        <h2 class="section-title">Müşterilerimiz Ne Diyor?</h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 40px;">
+            <div class="testimonial-card">
+                <p>"Harika bir deneyimdi! Ekip çok profesyonel ve sonuç mükemmeldi. Herkese tavsiye ederim."</p>
+                <h4>— Ayşe K.</h4>
+            </div>
+            <div class="testimonial-card">
+                <p>"Düğünüm için burayı tercih ettim ve kesinlikle doğru karar verdim. Çok mutluyum!"</p>
+                <h4>— Elif M.</h4>
+            </div>
+            <div class="testimonial-card">
+                <p>"Yıllardır aradığım kaliteyi sonunda buldum. Artık sadece buraya geliyorum."</p>
+                <h4>— Zeynep Y.</h4>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div>
+                <h4>İletişim</h4>
+                <p>📍 İstanbul, Nişantaşı</p>
+                <p>📞 +90 212 XXX XX XX</p>
+                <p>✉️ info@beautylab.com</p>
+            </div>
+            <div>
+                <h4>Çalışma Saatleri</h4>
+                <p>Hafta İçi: 09:00 - 20:00</p>
+                <p>Cumartesi: 10:00 - 19:00</p>
+                <p>Pazar: 11:00 - 18:00</p>
+            </div>
+            <div>
+                <h4>Sosyal Medya</h4>
+                <p><a href="#">Instagram</a></p>
+                <p><a href="#">Facebook</a></p>
+                <p><a href="#">WhatsApp</a></p>
+            </div>
+        </div>
+        <p style="border-top: 1px solid #444; padding-top: 30px; color: #888;">© 2025 BeautyLab. Tüm hakları saklıdır.</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ekibimiz - ÉLÉGANCE</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Georgia', serif; color: #1a1a1a; background: #fff; }
+
+        .header {
+            position: fixed; top: 0; width: 100%; background: rgba(0, 0, 0, 0.95);
+            padding: 20px 5%; z-index: 1000; display: flex;
+            justify-content: space-between; align-items: center;
+        }
+        .logo {
+            font-size: 28px; font-weight: bold;
+            background: linear-gradient(135deg, #D4AF37, #FFD700);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            letter-spacing: 3px;
+        }
+        nav a {
+            color: #fff; text-decoration: none; margin: 0 20px;
+            font-size: 13px; letter-spacing: 2px; text-transform: uppercase;
+        }
+        nav a:hover { color: #D4AF37; }
+
+        .auth-buttons {
+            display: flex; gap: 15px; align-items: center; margin-left: 30px;
+        }
+        .auth-btn {
+            padding: 10px 25px; font-size: 12px; letter-spacing: 2px;
+            text-transform: uppercase; text-decoration: none; transition: all 0.3s;
+            border-radius: 3px; font-family: 'Georgia', serif;
+        }
+        .login-btn {
+            color: #fff; border: 1px solid #fff; background: transparent;
+        }
+        .login-btn:hover { background: #fff; color: #000; }
+        .signup-btn {
+            background: linear-gradient(135deg, #D4AF37, #FFD700);
+            color: #000; border: 1px solid #D4AF37; font-weight: bold;
+        }
+        .signup-btn:hover {
+            background: transparent; color: #D4AF37; border-color: #D4AF37;
+        }
+
+        .page-header {
+            height: 60vh; background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.5)),
+            url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080"><rect fill="%23000" width="1920" height="1080"/></svg>');
+            display: flex; align-items: center; justify-content: center;
+            text-align: center; color: #fff; margin-top: 80px;
+        }
+        .page-header h1 {
+            font-size: 64px; font-weight: 300; letter-spacing: 8px;
+            text-transform: uppercase;
+            background: linear-gradient(135deg, #D4AF37, #FFD700);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        .page-header p {
+            font-size: 18px; letter-spacing: 3px; color: #ccc; margin-top: 20px;
+        }
+
+        .team-section {
+            padding: 100px 5%;
+        }
+        .team-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 50px;
+        }
+        .team-member {
+            background: #fafafa; padding: 0; overflow: hidden;
+            border: 1px solid #e0e0e0; transition: all 0.3s;
+            text-align: center;
+        }
+        .team-member:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            border-color: #D4AF37;
+        }
+        .member-photo {
+            width: 100%; height: 350px;
+            background-size: cover;
+            background-position: center;
+            background-color: #f0f0f0;
+        }
+        .member-info {
+            padding: 40px 30px;
+        }
+        .member-info h3 {
+            font-size: 24px; letter-spacing: 2px; margin-bottom: 10px;
+        }
+        .member-role {
+            font-size: 14px; color: #D4AF37; letter-spacing: 2px;
+            text-transform: uppercase; margin-bottom: 20px;
+        }
+        .member-bio {
+            font-size: 14px; color: #666; line-height: 1.8; margin-bottom: 20px;
+        }
+        .member-specialties {
+            font-size: 13px; color: #999; margin-bottom: 25px;
+        }
+        .member-specialties strong {
+            color: #1a1a1a; display: block; margin-bottom: 10px;
+        }
+        .book-with {
+            display: inline-block; padding: 12px 30px;
+            background: transparent; color: #D4AF37;
+            border: 2px solid #D4AF37; text-decoration: none;
+            font-size: 12px; letter-spacing: 2px; text-transform: uppercase;
+            transition: all 0.3s;
+        }
+        .book-with:hover {
+            background: #D4AF37; color: #000;
+        }
+
+        .founder-section {
+            padding: 100px 5%; background: #f8f8f8;
+            display: grid; grid-template-columns: 1fr 1fr;
+            gap: 80px; align-items: center;
+        }
+        .founder-photo {
+            width: 100%; height: 500px;
+            background-size: cover;
+            background-position: center;
+            background-color: #f0f0f0;
+        }
+        .founder-content h2 {
+            font-size: 48px; letter-spacing: 4px; margin-bottom: 30px;
+            text-transform: uppercase; font-weight: 300;
+        }
+        .founder-content p {
+            font-size: 15px; color: #666; line-height: 1.9;
+            margin-bottom: 20px;
+        }
+
+        .footer {
+            background: #0a0a0a;
+            color: #fff;
+            padding: 80px 5% 40px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 60px;
+            margin-bottom: 60px;
+        }
+
+        .footer-section h4 {
+            color: #D4AF37;
+            margin-bottom: 25px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-size: 16px;
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: #999;
+            text-decoration: none;
+            line-height: 2.2;
+            font-size: 14px;
+            display: block;
+            transition: all 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: #D4AF37;
+            padding-left: 5px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            width: 45px;
+            height: 45px;
+            border: 1px solid #D4AF37;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.3s;
+            font-size: 20px;
+        }
+
+        .social-links a:hover {
+            background: #D4AF37;
+            color: #000;
+            transform: translateY(-3px);
+            padding-left: 0;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #2a2a2a;
+            padding-top: 30px;
+            text-align: center;
+            color: #666;
+            font-size: 13px;
+            letter-spacing: 1px;
+        }
+
+        @media (max-width: 768px) {
+            .founder-section { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="logo">ÉLÉGANCE</div>
+        <div style="display: flex; align-items: center;">
+            <nav>
+                <a href="index.html">Ana Sayfa</a>
+                <a href="services.html">Hizmetler</a>
+                <a href="gallery.html">Galeri</a>
+                <a href="pricing.html">Fiyatlar</a>
+                <a href="team.html">Ekibimiz</a>
+                <a href="about.html">Hakkımızda</a>
+                <a href="booking.html">Randevu</a>
+            </nav>
+            <div class="auth-buttons">
+                <a href="#" class="auth-btn login-btn">Giriş Yap</a>
+                <a href="#" class="auth-btn signup-btn">Üye Ol</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="page-header">
+        <div>
+            <h1>Ekibimiz</h1>
+            <p>Uzman Stilistlerimizle Tanışın</p>
+        </div>
+    </div>
+
+    <section class="founder-section">
+        <div class="founder-photo" style="background-image: url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&q=80');"></div>
+        <div class="founder-content">
+            <h2>Kurucumuz</h2>
+            <h3 style="font-size: 32px; margin-bottom: 15px; letter-spacing: 2px;">Can Yılmaz</h3>
+            <p style="font-size: 14px; color: #D4AF37; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 30px;">Kurucu & Baş Stilist</p>
+            <p>2010 yılında Nişantaşı'nda kurduğumuz ÉLÉGANCE, İstanbul'un en prestijli kuaför salonlarından biri haline geldi. 25 yıllık deneyimimle, Paris, Londra ve Milano'da eğitim aldım ve dünya çapında ödüller kazandım.</p>
+            <p>Misyonumuz, her müşterimize özel, lüks bir güzellik deneyimi sunmak ve en yüksek kalite standartlarını korumak. Ekibimizle birlikte, sizin için en iyi sonuçları elde etmek için çalışıyoruz.</p>
+        </div>
+    </section>
+
+    <section class="team-section">
+        <div class="team-grid">
+            <div class="team-member">
+                <div class="member-photo" style="background-image: url('https://images.unsplash.com/photo-1594744803329-e58b31de8bf5?w=800&q=80');"></div>
+                <div class="member-info">
+                    <h3>Ayşe Demir</h3>
+                    <div class="member-role">Kıdemli Stilist</div>
+                    <p class="member-bio">12 yıldır saç tasarımı alanında çalışıyorum. Özellikle balyaj ve ombre tekniklerde uzmanım.</p>
+                    <div class="member-specialties">
+                        <strong>Uzmanlık Alanları:</strong>
+                        Balyaj, Ombre, Saç Boyama
+                    </div>
+                    <a href="booking.html" class="book-with">Randevu Al</a>
+                </div>
+            </div>
+
+            <div class="team-member">
+                <div class="member-photo" style="background-image: url('https://images.unsplash.com/photo-1580489944761-15a19d654956?w=800&q=80');"></div>
+                <div class="member-info">
+                    <h3>Elif Kaya</h3>
+                    <div class="member-role">Gelin Uzmanı</div>
+                    <p class="member-bio">Özel gün saç ve makyajında 10 yıllık deneyim. En özel gününüzde yanınızdayım.</p>
+                    <div class="member-specialties">
+                        <strong>Uzmanlık Alanları:</strong>
+                        Gelin Saçı, Gelin Makyajı, Özel Gün
+                    </div>
+                    <a href="booking.html" class="book-with">Randevu Al</a>
+                </div>
+            </div>
+
+            <div class="team-member">
+                <div class="member-photo" style="background-image: url('https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=800&q=80');"></div>
+                <div class="member-info">
+                    <h3>Zeynep Arslan</h3>
+                    <div class="member-role">Renk Uzmanı</div>
+                    <p class="member-bio">Renk teorisi ve saç boyama konusunda sertifikalı uzman. 15 yıllık deneyim.</p>
+                    <div class="member-specialties">
+                        <strong>Uzmanlık Alanları:</strong>
+                        Renk Düzeltme, Balyaj, Highlights
+                    </div>
+                    <a href="booking.html" class="book-with">Randevu Al</a>
+                </div>
+            </div>
+
+            <div class="team-member">
+                <div class="member-photo" style="background-image: url('https://images.unsplash.com/photo-1551836022-4c4c79ecde51?w=800&q=80');"></div>
+                <div class="member-info">
+                    <h3>Selin Yurt</h3>
+                    <div class="member-role">Makyaj Sanatçısı</div>
+                    <p class="member-bio">Profesyonel makyaj sanatçısı. HD makyaj ve özel efektlerde uzman.</p>
+                    <div class="member-specialties">
+                        <strong>Uzmanlık Alanları:</strong>
+                        HD Makyaj, Gelin Makyajı, Airbrush
+                    </div>
+                    <a href="booking.html" class="book-with">Randevu Al</a>
+                </div>
+            </div>
+
+            <div class="team-member">
+                <div class="member-photo" style="background-image: url('https://images.unsplash.com/photo-1517841905240-472988babdf9?w=800&q=80');"></div>
+                <div class="member-info">
+                    <h3>Burcu Şahin</h3>
+                    <div class="member-role">Tırnak Teknisyeni</div>
+                    <p class="member-bio">Nail art ve protez tırnak konusunda sertifikalı teknisyen. 7 yıl tecrübe.</p>
+                    <div class="member-specialties">
+                        <strong>Uzmanlık Alanları:</strong>
+                        Kalıcı Oje, Protez Tırnak, Nail Art
+                    </div>
+                    <a href="booking.html" class="book-with">Randevu Al</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>ÉLÉGANCE</h4>
+                <p>İstanbul'un en prestijli kuaför salonu. 2010'dan beri güzellik ve zarafette öncü.</p>
+                <div class="social-links">
+                    <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                    <a href="#" title="TikTok"><i class="fab fa-tiktok"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h4>Hızlı Linkler</h4>
+                <a href="services.html">Hizmetlerimiz</a>
+                <a href="pricing.html">Fiyat Listesi</a>
+                <a href="gallery.html">Galeri</a>
+                <a href="team.html">Ekibimiz</a>
+                <a href="about.html">Hakkımızda</a>
+                <a href="booking.html">Online Randevu</a>
+            </div>
+            <div class="footer-section">
+                <h4>Hizmetler</h4>
+                <a href="services.html#cutting">Saç Kesimi</a>
+                <a href="services.html#coloring">Saç Boyama</a>
+                <a href="services.html#treatment">Saç Bakımı</a>
+                <a href="services.html#nails">Tırnak Bakımı</a>
+                <a href="services.html#makeup">Makyaj</a>
+                <a href="services.html#bridal">Gelin Paketi</a>
+            </div>
+            <div class="footer-section">
+                <h4>İletişim</h4>
+                <p>📍 Valikonağı Cad. No:45<br>Nişantaşı, İstanbul</p>
+                <p>📞 +90 (212) 234 56 78</p>
+                <p>✉️ info@elegance.com.tr</p>
+                <p>🕐 Pzt-Cmt: 09:00 - 19:00</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            © 2025 ÉLÉGANCE. Tüm hakları saklıdır. | Tasarım & Geliştirme
+        </div>
+    </footer>
+</body>
+</html>

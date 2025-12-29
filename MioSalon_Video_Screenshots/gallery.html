@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galeri - ÉLÉGANCE Kuaför Salonu</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Georgia', serif; color: #1a1a1a; background: #fff; }
+
+        .header {
+            position: fixed; top: 0; width: 100%; background: rgba(0, 0, 0, 0.95);
+            padding: 20px 5%; z-index: 1000; display: flex;
+            justify-content: space-between; align-items: center;
+        }
+        .logo {
+            font-size: 28px; font-weight: bold;
+            background: linear-gradient(135deg, #D4AF37, #FFD700);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            letter-spacing: 3px;
+        }
+        nav a {
+            color: #fff; text-decoration: none; margin: 0 20px;
+            font-size: 13px; letter-spacing: 2px; text-transform: uppercase;
+        }
+        nav a:hover { color: #D4AF37; }
+
+        .auth-buttons {
+            display: flex; gap: 15px; align-items: center; margin-left: 30px;
+        }
+        .auth-btn {
+            padding: 10px 25px; font-size: 12px; letter-spacing: 2px;
+            text-transform: uppercase; text-decoration: none; transition: all 0.3s;
+            border-radius: 3px; font-family: 'Georgia', serif;
+        }
+        .login-btn {
+            color: #fff; border: 1px solid #fff; background: transparent;
+        }
+        .login-btn:hover { background: #fff; color: #000; }
+        .signup-btn {
+            background: linear-gradient(135deg, #D4AF37, #FFD700);
+            color: #000; border: 1px solid #D4AF37; font-weight: bold;
+        }
+        .signup-btn:hover {
+            background: transparent; color: #D4AF37; border-color: #D4AF37;
+        }
+
+        .page-header {
+            height: 50vh; background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.5)),
+            url('https://images.unsplash.com/photo-1560066984-138dadb4c035?w=1920&q=80');
+            background-size: cover; background-position: center;
+            display: flex; align-items: center; justify-content: center;
+            text-align: center; color: #fff; margin-top: 80px;
+        }
+        .page-header h1 {
+            font-size: 64px; font-weight: 300; letter-spacing: 8px;
+            text-transform: uppercase;
+            background: linear-gradient(135deg, #D4AF37, #FFD700);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+
+        .gallery-filters {
+            padding: 60px 5%; background: #f8f8f8; text-align: center;
+        }
+        .filter-button {
+            display: inline-block; padding: 12px 30px; margin: 10px;
+            background: transparent; color: #1a1a1a; border: 2px solid #D4AF37;
+            font-size: 13px; letter-spacing: 2px; text-transform: uppercase;
+            cursor: pointer; transition: all 0.3s;
+        }
+        .filter-button:hover, .filter-button.active {
+            background: #D4AF37; color: #000;
+        }
+
+        .gallery-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 3px; padding: 0;
+        }
+        .gallery-item {
+            height: 400px; position: relative; overflow: hidden;
+            cursor: pointer; transition: all 0.3s;
+        }
+        .gallery-item img {
+            width: 100%; height: 100%; object-fit: cover;
+            transition: transform 0.5s;
+        }
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+        .gallery-item::before {
+            content: ''; position: absolute; top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.8), rgba(255, 215, 0, 0.8));
+            opacity: 0; transition: opacity 0.3s; z-index: 1;
+        }
+        .gallery-item:hover::before { opacity: 1; }
+
+        .gallery-item-caption {
+            position: absolute; bottom: 0; left: 0; right: 0;
+            padding: 20px; background: linear-gradient(transparent, rgba(0,0,0,0.8));
+            color: #fff; transform: translateY(100%);
+            transition: transform 0.3s; z-index: 2;
+        }
+        .gallery-item:hover .gallery-item-caption {
+            transform: translateY(0);
+        }
+        .gallery-item-caption h3 {
+            font-size: 18px; letter-spacing: 2px; margin-bottom: 5px;
+        }
+        .gallery-item-caption p {
+            font-size: 13px; color: #D4AF37; letter-spacing: 1px;
+        }
+
+        .gallery-category {
+            padding: 80px 5%; background: #fff;
+        }
+        .gallery-category:nth-child(even) {
+            background: #f8f8f8;
+        }
+        .category-title {
+            text-align: center; font-size: 42px; letter-spacing: 4px;
+            text-transform: uppercase; font-weight: 300; margin-bottom: 60px;
+        }
+
+        .lightbox {
+            display: none; position: fixed; top: 0; left: 0;
+            width: 100%; height: 100%; background: rgba(0,0,0,0.95);
+            z-index: 2000; justify-content: center; align-items: center;
+        }
+        .lightbox.active { display: flex; }
+        .lightbox img {
+            max-width: 90%; max-height: 90%;
+            object-fit: contain;
+        }
+        .lightbox-close {
+            position: absolute; top: 30px; right: 30px;
+            font-size: 40px; color: #fff; cursor: pointer;
+        }
+
+        .footer {
+            background: #0a0a0a;
+            color: #fff;
+            padding: 80px 5% 40px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 60px;
+            margin-bottom: 60px;
+        }
+
+        .footer-section h4 {
+            color: #D4AF37;
+            margin-bottom: 25px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-size: 16px;
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: #999;
+            text-decoration: none;
+            line-height: 2.2;
+            font-size: 14px;
+            display: block;
+            transition: all 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: #D4AF37;
+            padding-left: 5px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            width: 45px;
+            height: 45px;
+            border: 1px solid #D4AF37;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.3s;
+            font-size: 20px;
+        }
+
+        .social-links a:hover {
+            background: #D4AF37;
+            color: #000;
+            transform: translateY(-3px);
+            padding-left: 0;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #2a2a2a;
+            padding-top: 30px;
+            text-align: center;
+            color: #666;
+            font-size: 13px;
+            letter-spacing: 1px;
+        }
+
+        @media (max-width: 768px) {
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+            .gallery-item {
+                height: 350px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="logo">ÉLÉGANCE</div>
+        <div style="display: flex; align-items: center;">
+            <nav>
+                <a href="index.html">Ana Sayfa</a>
+                <a href="services.html">Hizmetler</a>
+                <a href="gallery.html">Galeri</a>
+                <a href="pricing.html">Fiyatlar</a>
+                <a href="team.html">Ekibimiz</a>
+                <a href="about.html">Hakkımızda</a>
+                <a href="booking.html">Randevu</a>
+            </nav>
+            <div class="auth-buttons">
+                <a href="#" class="auth-btn login-btn">Giriş Yap</a>
+                <a href="#" class="auth-btn signup-btn">Üye Ol</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="page-header">
+        <h1>Galeri</h1>
+    </div>
+
+    <div class="gallery-filters">
+        <button class="filter-button active" data-filter="all">Tümü</button>
+        <button class="filter-button" data-filter="haircut">Saç Kesimi</button>
+        <button class="filter-button" data-filter="coloring">Saç Boyama</button>
+        <button class="filter-button" data-filter="bridal">Gelin</button>
+        <button class="filter-button" data-filter="makeup">Makyaj</button>
+        <button class="filter-button" data-filter="transformation">Dönüşümler</button>
+    </div>
+
+    <div class="gallery-category">
+        <h2 class="category-title">Saç Kesimi & Şekillendirme</h2>
+        <div class="gallery-grid">
+            <div class="gallery-item" data-category="haircut">
+                <img src="https://images.unsplash.com/photo-1562322140-8baeececf3df?w=800&q=80" alt="Kadın Saç Kesimi">
+                <div class="gallery-item-caption">
+                    <h3>Modern Kadın Saç Kesimi</h3>
+                    <p>Katmanlı Bob Kesim</p>
+                </div>
+            </div>
+            <div class="gallery-item" data-category="haircut">
+                <img src="https://images.unsplash.com/photo-1560869713-7d0a29430803?w=800&q=80" alt="Uzun Saç Kesimi">
+                <div class="gallery-item-caption">
+                    <h3>Uzun Saç Şekillendirme</h3>
+                    <p>Katmanlı Uzun Saç</p>
+                </div>
+            </div>
+            <div class="gallery-item" data-category="haircut">
+                <img src="https://images.unsplash.com/photo-1522337660859-02fbefca4702?w=800&q=80" alt="Kısa Saç">
+                <div class="gallery-item-caption">
+                    <h3>Kısa Pixie Kesim</h3>
+                    <p>Cesur ve Şık</p>
+                </div>
+            </div>
+            <div class="gallery-item" data-category="haircut">
+                <img src="https://images.unsplash.com/photo-1595475884562-073c30d45670?w=800&q=80" alt="Fön">
+                <div class="gallery-item-caption">
+                    <h3>Profesyonel Fön</h3>
+                    <p>Hacimli Dalgalar</p>
+                </div>
+            </div>
+            <div class="gallery-item" data-category="haircut">
+                <img src="https://images.unsplash.com/photo-1487412912498-0447578fcca8?w=800&q=80" alt="Topuz">
+                <div class="gallery-item-caption">
+                    <h3>Şık Topuz Modelleri</h3>
+                    <p>Özel Gün Saç Tasarımı</p>
+                </div>
+            </div>
+            <div class="gallery-item" data-category="haircut">
+                <img src="https://images.unsplash.com/photo-1580618672591-eb180b1a973f?w=800&q=80" alt="Dalgalı Saç">
+                <div class="gallery-item-caption">
+                    <h3>Doğal Dalgalar</h3>
+                    <p>Beach Waves Stil</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="gallery-category">
+        <h2 class="category-title">Saç Boyama & Renklendirme</h2>
+        <div class="gallery-grid">
+            <div class="gallery-item" data-category="coloring">
+                <img src="https://images.unsplash.com/photo-1519699047748-de8e457a634e?w=800&q=80" alt="Balyaj">
+                <div class="gallery-item-caption">
+                    <h3>Balyaj Uygulaması</h3>
+                    <p>Doğal Geçişler</p>
+                </div>
+            </div>
+            <div class="gallery-item" data-category="coloring">
+                <img src="https://images.unsplash.com/photo-1582095133179-bfd08e2fc6b3?w=800&q=80" alt="Platin Sarı">
+                <div class="gallery-item-caption">
+                    <h3>Platin Sarı</h3>
+                    <p>Yüksek Işıklı Renk</p>
+                </div>
+            </div>
+            <div class="gallery-item" data-category="coloring">
+                <img src="https://images.unsplash.com/photo-1526045478516-99145907023c?w=800&q=80" alt="Ombre">
+                <div class="gallery-item-caption">
+                    <h3>Ombre Tekniği</h3>
+                    <p>Koyu Kökten Açık Uçlara</p>
+                </div>
+            </div>
+            <div class="gallery-item" data-category="coloring">
+                <img src="https://images.unsplash.com/photo-1492106087820-71f1a00d2b11?w=800&q=80" alt="Kahverengi Tonlar">
+                <div class="gallery-item-caption">
+                    <h3>Zengin Kahverengi Tonları</h3>
+                    <p>Çikolata Kahve</p>
+                </div>
+            </div>
+            <div class="gallery-item" data-category="coloring">
+                <img src="https://images.unsplash.com/photo-1614987887987-f237b82a5d33?w=800&q=80" alt="Highlights">
+                <div class="gallery-item-caption">
+                    <h3>Highlights</h3>
+                    <p>Işıltılı Tutamlar</p>
+                </div>
+            </div>
+            <div class="gallery-item" data-category="coloring">
+                <img src="https://images.unsplash.com/photo-1434725039720-aaad6dd32dfe?w=800&q=80" alt="Kızıl Saç">
+                <div class="gallery-item-caption">
+                    <h3>Kızıl Tonları</h3>
+                    <p>Ateşli Bakır Rengi</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="gallery-category">
+        <h2 class="category-title">Gelin Saç ve Makyajı</h2>
+        <div class="gallery-grid">
+            <div class="gallery-item" data-category="bridal">
+                <img src="https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?w=800&q=80" alt="Gelin Saçı">
+                <div class="gallery-item-caption">
+                    <h3>Klasik Gelin Saçı</h3>
+                    <p>Şık Topuz ve Taç</p>
+                </div>
+            </div>
+            <div class="gallery-item" data-category="bridal">
+                <img src="https://images.unsplash.com/photo-1606800052052-a08af7148866?w=800&q=80" alt="Gelin Makyajı">
+                <div class="gallery-item-caption">
+                    <h3>Gelin Makyajı</h3>
+                    <p>Doğal ve Işıltılı</p>
+                </div>
+            </div>
+            <div class="gallery-item" data-category="bridal">
+                <img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=800&q=80" alt="Bohemian Gelin">
+                <div class="gallery-item-caption">
+                    <h3>Bohemian Gelin Stili</h3>
+                    <p>Romantik Dalgalar</p>
+                </div>
+            </div>
+            <div class="gallery-item" data-category="bridal">
+                <img src="https://images.unsplash.com/photo-1591604021695-0c69b7c05981?w=800&q=80" alt="Gelin Topuzu">
+                <div class="gallery-item-caption">
+                    <h3>Zarif Gelin Topuzu</h3>
+                    <p>Çiçek Aksesuarlı</p>
+                </div>
+            </div>
+            <div class="gallery-item" data-category="bridal">
+                <img src="https://images.unsplash.com/photo-1469371670807-013ccf25f16a?w=800&q=80" alt="Gelin Hazırlığı">
+                <div class="gallery-item-caption">
+                    <h3>Gelin Hazırlık Anı</h3>
+                    <p>En Özel Gününüz</p>
+                </div>
+            </div>
+            <div class="gallery-item" data-category="bridal">
+                <img src="https://images.unsplash.com/photo-1595433707802-6b0c8c5b1b91?w=800&q=80" alt="Taç ve Saç">
+                <div class="gallery-item-caption">
+                    <h3>Taç ile Saç Tasarımı</h3>
+                    <p>Prenses Görünümü</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="gallery-category">
+        <h2 class="category-title">Makyaj Sanatı</h2>
+        <div class="gallery-grid">
+            <div class="gallery-item" data-category="makeup">
+                <img src="https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?w=800&q=80" alt="Doğal Makyaj">
+                <div class="gallery-item-caption">
+                    <h3>Doğal Günlük Makyaj</h3>
+                    <p>Nude Tonlar</p>
+                </div>
+            </div>
+            <div class="gallery-item" data-category="makeup">
+                <img src="https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?w=800&q=80" alt="Gece Makyajı">
+                <div class="gallery-item-caption">
+                    <h3>Gece Makyajı</h3>
+                    <p>Smokey Eye</p>
+                </div>
+            </div>
+            <div class="gallery-item" data-category="makeup">
+                <img src="https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=800&q=80" alt="Göz Makyajı">
+                <div class="gallery-item-caption">
+                    <h3>Dramatik Göz Makyajı</h3>
+                    <p>Eyeliner ve Maskara</p>
+                </div>
+            </div>
+            <div class="gallery-item" data-category="makeup">
+                <img src="https://images.unsplash.com/photo-1509428307411-33c31a0834cd?w=800&q=80" alt="Dudak Makyajı">
+                <div class="gallery-item-caption">
+                    <h3>Bold Dudak Makyajı</h3>
+                    <p>Kırmızı Ruj</p>
+                </div>
+            </div>
+            <div class="gallery-item" data-category="makeup">
+                <img src="https://images.unsplash.com/photo-1596704017254-9b121068ec31?w=800&q=80" alt="Contouring">
+                <div class="gallery-item-caption">
+                    <h3>Contouring & Highlighting</h3>
+                    <p>Yüz Şekillendirme</p>
+                </div>
+            </div>
+            <div class="gallery-item" data-category="makeup">
+                <img src="https://images.unsplash.com/photo-1522337094846-8a818192de1f?w=800&q=80" alt="Kirpik">
+                <div class="gallery-item-caption">
+                    <h3>Kirpik Uygulaması</h3>
+                    <p>Volümlü Kirpikler</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="gallery-category">
+        <h2 class="category-title">Öncesi / Sonrası Dönüşümler</h2>
+        <div class="gallery-grid">
+            <div class="gallery-item" data-category="transformation">
+                <img src="https://images.unsplash.com/photo-1560066984-138dadb4c035?w=800&q=80" alt="Saç Dönüşümü">
+                <div class="gallery-item-caption">
+                    <h3>Uzundan Kısaya Dönüşüm</h3>
+                    <p>Yeni Başlangıç</p>
+                </div>
+            </div>
+            <div class="gallery-item" data-category="transformation">
+                <img src="https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?w=800&q=80" alt="Renk Dönüşümü">
+                <div class="gallery-item-caption">
+                    <h3>Renk Değişimi</h3>
+                    <p>Brunette'ten Blonde'a</p>
+                </div>
+            </div>
+            <div class="gallery-item" data-category="transformation">
+                <img src="https://images.unsplash.com/photo-1559599101-f09722fb4948?w=800&q=80" alt="Stil Değişimi">
+                <div class="gallery-item-caption">
+                    <h3>Komple Stil Değişimi</h3>
+                    <p>Yeni Sen</p>
+                </div>
+            </div>
+            <div class="gallery-item" data-category="transformation">
+                <img src="https://images.unsplash.com/photo-1519699047748-de8e457a634e?w=800&q=80" alt="Makyaj Dönüşümü">
+                <div class="gallery-item-caption">
+                    <h3>Makyaj Dönüşümü</h3>
+                    <p>Güzelliğinizi Keşfedin</p>
+                </div>
+            </div>
+            <div class="gallery-item" data-category="transformation">
+                <img src="https://images.unsplash.com/photo-1599351431613-6b9fc1c36d03?w=800&q=80" alt="Saç Bakım Sonrası">
+                <div class="gallery-item-caption">
+                    <h3>Keratin Sonrası</h3>
+                    <p>İpeksi Parlak Saçlar</p>
+                </div>
+            </div>
+            <div class="gallery-item" data-category="transformation">
+                <img src="https://images.unsplash.com/photo-1562322140-8baeececf3df?w=800&q=80" alt="Tam Değişim">
+                <div class="gallery-item-caption">
+                    <h3>Tam Makeover</h3>
+                    <p>Saç, Renk ve Stil</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox">
+        <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
+        <img id="lightbox-img" src="" alt="">
+    </div>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>ÉLÉGANCE</h4>
+                <p>İstanbul'un en prestijli kuaför salonu. 2010'dan beri güzellik ve zarafette öncü.</p>
+                <div class="social-links">
+                    <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                    <a href="#" title="TikTok"><i class="fab fa-tiktok"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h4>Hızlı Linkler</h4>
+                <a href="services.html">Hizmetlerimiz</a>
+                <a href="pricing.html">Fiyat Listesi</a>
+                <a href="gallery.html">Galeri</a>
+                <a href="team.html">Ekibimiz</a>
+                <a href="about.html">Hakkımızda</a>
+                <a href="booking.html">Online Randevu</a>
+            </div>
+            <div class="footer-section">
+                <h4>Hizmetler</h4>
+                <a href="services.html#cutting">Saç Kesimi</a>
+                <a href="services.html#coloring">Saç Boyama</a>
+                <a href="services.html#treatment">Saç Bakımı</a>
+                <a href="services.html#nails">Tırnak Bakımı</a>
+                <a href="services.html#makeup">Makyaj</a>
+                <a href="services.html#bridal">Gelin Paketi</a>
+            </div>
+            <div class="footer-section">
+                <h4>İletişim</h4>
+                <p>📍 Valikonağı Cad. No:45<br>Nişantaşı, İstanbul</p>
+                <p>📞 +90 (212) 234 56 78</p>
+                <p>✉️ info@elegance.com.tr</p>
+                <p>🕐 Pzt-Cmt: 09:00 - 19:00</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            © 2025 ÉLÉGANCE. Tüm hakları saklıdır. | Tasarım & Geliştirme
+        </div>
+    </footer>
+
+    <script>
+        // Filter functionality
+        const filterButtons = document.querySelectorAll('.filter-button');
+        const galleryItems = document.querySelectorAll('.gallery-item');
+
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all buttons
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                // Add active class to clicked button
+                button.classList.add('active');
+
+                const filter = button.getAttribute('data-filter');
+
+                galleryItems.forEach(item => {
+                    if (filter === 'all') {
+                        item.style.display = 'block';
+                    } else {
+                        if (item.getAttribute('data-category') === filter) {
+                            item.style.display = 'block';
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    }
+                });
+            });
+        });
+
+        // Lightbox functionality
+        galleryItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const img = item.querySelector('img');
+                document.getElementById('lightbox-img').src = img.src;
+                document.getElementById('lightbox').classList.add('active');
+            });
+        });
+
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.remove('active');
+        }
+
+        // Close lightbox with ESC key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeLightbox();
+            }
+        });
+
+        // Close lightbox when clicking outside the image
+        document.getElementById('lightbox').addEventListener('click', (e) => {
+            if (e.target.id === 'lightbox') {
+                closeLightbox();
+            }
+        });
+    </script>
+</body>
+</html>
